@@ -19,6 +19,7 @@ package config
 import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
+	"github.com/crossplane-contrib/provider-jet-datadog/config/dashboard"
 
 	"github.com/crossplane-contrib/provider-jet-datadog/config/downtime"
 
@@ -54,6 +55,7 @@ func GetProvider() *tjconfig.Provider {
 			"datadog_downtime$",
 			"datadog_service_level_objective$",
 			"datadog_synthetics_test$",
+			"datadog_dashboard$",
 		}))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
@@ -61,6 +63,7 @@ func GetProvider() *tjconfig.Provider {
 		monitor.Configure,
 		synthetics.Configure,
 		downtime.Configure,
+		dashboard.Configure,
 	} {
 		configure(pc)
 	}
